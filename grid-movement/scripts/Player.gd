@@ -29,26 +29,27 @@ var direction_data = {
 	"up": {
 		"adjacent_tile": Vector2( 0 , -TILE_SIZE ),
 		"step_vector":   Vector2( 0 , -STEP_DISTANCE ),
-		"cursor_pos":    Vector2( 16 , -16 )
+		"cursor_pos":    Vector2( 32 , -32 )
 	},
 	"down": {
 		"adjacent_tile": Vector2( 0 , TILE_SIZE ),
 		"step_vector":   Vector2( 0 , STEP_DISTANCE ),
-		"cursor_pos":    Vector2( 16 , 48 )
+		"cursor_pos":    Vector2( 32 , 96 )
 	},
 	"left": {
 		"adjacent_tile": Vector2( -TILE_SIZE , 0 ),
 		"step_vector":   Vector2( -STEP_DISTANCE , 0 ),
-		"cursor_pos":    Vector2( -16 , 16 )
+		"cursor_pos":    Vector2( -32 , 32 )
 	},
 	"right": {
 		"adjacent_tile": Vector2( TILE_SIZE , 0 ),
 		"step_vector":   Vector2( STEP_DISTANCE , 0 ),
-		"cursor_pos":    Vector2( 48 , 16 )
+		"cursor_pos":    Vector2( 96 , 32 )
 	}
 }
 
 func _ready():
+	_recalibrate_tile_cursor(direction)
 	set_fixed_process(true)
 
 func _fixed_process(delta):

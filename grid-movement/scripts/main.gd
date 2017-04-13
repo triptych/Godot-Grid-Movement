@@ -4,7 +4,7 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	var player = get_node("Player")
+	var player = get_node("ObjectLevel/Player")
 	if Input.is_action_pressed("ui_up"):
 		player.take_move_command("up")
 	elif Input.is_action_pressed("ui_down"):
