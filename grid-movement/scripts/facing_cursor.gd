@@ -30,3 +30,4 @@ func interact():
 		for obj in overlaps:
 			if obj.is_in_group("Interactive"):
 				obj.on_interact()
+		active = true

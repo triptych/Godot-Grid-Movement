@@ -18,5 +18,5 @@ func _fixed_process(delta):
 	elif Input.is_action_pressed("ui_right"):
 		player.take_move_command("right")
 		cursor.set_cursor_direction("right")
-	elif Input.is_action_pressed("ui_select"):
+	if Input.is_action_pressed("ui_select"):
 		cursor.interact()
