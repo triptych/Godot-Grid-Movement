@@ -30,8 +30,8 @@ by constants in Player.
 * Player has a child StaticBody2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction.
 Its position is recalibrated when the Player's direction changes from input.
 * Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
+* The facing cursor will search for any overlapping physics bodies, and if found, then checks if they are in the "Interactable" group. If so, that object's on_interact() function will be run.
 
 ## To Do
 
-* Create objects that will "activate" when the AdjacentTile cursor is hovering over them and an "interact" input is pressed.
 * Compensate for the remainder when TILE_SIZE is not divisible by STEP_DISTANCE.
