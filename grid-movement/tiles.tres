@@ -5,22 +5,12 @@
 [ext_resource path="res://sprites/ceiling.png" type="Texture" id=3]
 [ext_resource path="res://sprites/stalagmite.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="RectangleShape2D" id=11]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
-
-[sub_resource type="RectangleShape2D" id=14]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
-
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
@@ -60,6 +50,16 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
+[sub_resource type="RectangleShape2D" id=10]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="RectangleShape2D" id=11]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
 [resource]
 
 0/name = "Ground"
@@ -79,7 +79,7 @@ extents = Vector2( 10, 10 )
 1/occluder_offset = Vector2( 0, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 16, 16 )
-1/shapes = [ SubResource( 12 ) ]
+1/shapes = [ SubResource( 1 ) ]
 2/name = "Ceiling_TL"
 2/texture = ExtResource( 3 )
 2/tex_offset = Vector2( 0, 0 )
@@ -88,7 +88,7 @@ extents = Vector2( 10, 10 )
 2/occluder_offset = Vector2( 0, 0 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 16, 16 )
-2/shapes = [ SubResource( 10 ) ]
+2/shapes = [ SubResource( 4 ) ]
 3/name = "Ceiling_T"
 3/texture = ExtResource( 3 )
 3/tex_offset = Vector2( 0, 0 )
@@ -97,7 +97,7 @@ extents = Vector2( 10, 10 )
 3/occluder_offset = Vector2( 0, 0 )
 3/navigation_offset = Vector2( 0, 0 )
 3/shape_offset = Vector2( 16, 16 )
-3/shapes = [ SubResource( 3 ) ]
+3/shapes = [ SubResource( 5 ) ]
 4/name = "Ceiling_TR"
 4/texture = ExtResource( 3 )
 4/tex_offset = Vector2( 0, 0 )
@@ -106,7 +106,7 @@ extents = Vector2( 10, 10 )
 4/occluder_offset = Vector2( 0, 0 )
 4/navigation_offset = Vector2( 0, 0 )
 4/shape_offset = Vector2( 16, 16 )
-4/shapes = [ SubResource( 4 ) ]
+4/shapes = [ SubResource( 6 ) ]
 5/name = "Ceiling_L"
 5/texture = ExtResource( 3 )
 5/tex_offset = Vector2( 0, 0 )
@@ -115,7 +115,7 @@ extents = Vector2( 10, 10 )
 5/occluder_offset = Vector2( 0, 0 )
 5/navigation_offset = Vector2( 0, 0 )
 5/shape_offset = Vector2( 16, 16 )
-5/shapes = [ SubResource( 5 ) ]
+5/shapes = [ SubResource( 7 ) ]
 6/name = "Ceiling_C"
 6/texture = ExtResource( 3 )
 6/tex_offset = Vector2( 0, 0 )
@@ -124,7 +124,7 @@ extents = Vector2( 10, 10 )
 6/occluder_offset = Vector2( 0, 0 )
 6/navigation_offset = Vector2( 0, 0 )
 6/shape_offset = Vector2( 16, 16 )
-6/shapes = [ SubResource( 6 ) ]
+6/shapes = [ SubResource( 8 ) ]
 7/name = "Ceiling_R"
 7/texture = ExtResource( 3 )
 7/tex_offset = Vector2( 0, 0 )
@@ -133,7 +133,7 @@ extents = Vector2( 10, 10 )
 7/occluder_offset = Vector2( 0, 0 )
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 16, 16 )
-7/shapes = [ SubResource( 7 ) ]
+7/shapes = [ SubResource( 9 ) ]
 8/name = "Ceiling_BL"
 8/texture = ExtResource( 3 )
 8/tex_offset = Vector2( 0, 0 )
@@ -142,7 +142,7 @@ extents = Vector2( 10, 10 )
 8/occluder_offset = Vector2( 0, 0 )
 8/navigation_offset = Vector2( 0, 0 )
 8/shape_offset = Vector2( 16, 16 )
-8/shapes = [ SubResource( 8 ) ]
+8/shapes = [ SubResource( 10 ) ]
 9/name = "Ceiling_B"
 9/texture = ExtResource( 3 )
 9/tex_offset = Vector2( 0, 0 )
@@ -151,7 +151,7 @@ extents = Vector2( 10, 10 )
 9/occluder_offset = Vector2( 0, 0 )
 9/navigation_offset = Vector2( 0, 0 )
 9/shape_offset = Vector2( 16, 16 )
-9/shapes = [ SubResource( 9 ) ]
+9/shapes = [ SubResource( 11 ) ]
 10/name = "Ceiling_BR"
 10/texture = ExtResource( 3 )
 10/tex_offset = Vector2( 0, 0 )
@@ -160,7 +160,7 @@ extents = Vector2( 10, 10 )
 10/occluder_offset = Vector2( 0, 0 )
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 16, 16 )
-10/shapes = [ SubResource( 11 ) ]
+10/shapes = [ SubResource( 2 ) ]
 11/name = "Stalagmite"
 11/texture = ExtResource( 4 )
 11/tex_offset = Vector2( 0, 0 )
@@ -178,7 +178,7 @@ extents = Vector2( 10, 10 )
 12/occluder_offset = Vector2( 16, 16 )
 12/navigation_offset = Vector2( 16, 16 )
 12/shape_offset = Vector2( 0, 0 )
-12/shapes = [ null ]
+12/shapes = [  ]
 13/name = "Stalagmite_Bot"
 13/texture = ExtResource( 4 )
 13/tex_offset = Vector2( 0, 0 )
@@ -187,5 +187,5 @@ extents = Vector2( 10, 10 )
 13/occluder_offset = Vector2( 16, 16 )
 13/navigation_offset = Vector2( 16, 16 )
 13/shape_offset = Vector2( 16, 16 )
-13/shapes = [ SubResource( 14 ) ]
+13/shapes = [ SubResource( 3 ) ]
 

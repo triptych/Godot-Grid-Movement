@@ -1,13 +1,17 @@
 extends KinematicBody2D
 
+# Public instance variables
 # The size of tiles in the game world
-const TILE_SIZE = 32
+export(int) var tile_size = 32
 # Each time moveTimer*100 exceeds this value, the player moves by STEP_DISTANCE
-const STEP_SPEED = 0.4
+export(float) var step_speed = 0.4
 # The amount of distance the player bounds each time movement occurs
 # Should be divisible by TILE_SIZE!
-const STEP_DISTANCE = 4
+export(int) var step_distance = 4
+# The current direction of the player
+export(String, "up", "down", "left", "right") var direction = "up"
 
+# Private instance variables
 # Whether the player is currently moving. Locks off command input if true
 var moving = false
 # The vector that describes how the player moves
@@ -18,32 +22,29 @@ var moveRemaining = 0
 # resetting after each step of movement is complete
 var moveTimer = 0
 
-# The current direction of the player
-export var direction = "up"
-
 # Contains dictionaries of vectors for the 4 directions of movement.
 # adjacent_tile: The distance to the adjacent tile in this direction.
 # step_vector:   The distance to the next "step" in this direction.
 # cursor_pos:    The position of the child cursor relative to this object
 var direction_data = {
 	"up": {
-		"adjacent_tile": Vector2( 0 , -TILE_SIZE ),
-		"step_vector":   Vector2( 0 , -STEP_DISTANCE ),
+		"adjacent_tile": Vector2( 0 , -tile_size ),
+		"step_vector":   Vector2( 0 , -step_distance ),
 		"cursor_pos":    Vector2( 32 , -32 )
 	},
 	"down": {
-		"adjacent_tile": Vector2( 0 , TILE_SIZE ),
-		"step_vector":   Vector2( 0 , STEP_DISTANCE ),
+		"adjacent_tile": Vector2( 0 , tile_size ),
+		"step_vector":   Vector2( 0 , step_distance ),
 		"cursor_pos":    Vector2( 32 , 96 )
 	},
 	"left": {
-		"adjacent_tile": Vector2( -TILE_SIZE , 0 ),
-		"step_vector":   Vector2( -STEP_DISTANCE , 0 ),
+		"adjacent_tile": Vector2( -tile_size , 0 ),
+		"step_vector":   Vector2( -step_distance , 0 ),
 		"cursor_pos":    Vector2( -32 , 32 )
 	},
 	"right": {
-		"adjacent_tile": Vector2( TILE_SIZE , 0 ),
-		"step_vector":   Vector2( STEP_DISTANCE , 0 ),
+		"adjacent_tile": Vector2( tile_size , 0 ),
+		"step_vector":   Vector2( step_distance , 0 ),
 		"cursor_pos":    Vector2( 96 , 32 )
 	}
 }
@@ -61,7 +62,7 @@ func _fixed_process(delta):
 # Begins moving based on the provided vector
 func _make_movement(vector):
 	moveVector = vector
-	moveRemaining = TILE_SIZE
+	moveRemaining = tile_size
 	moving = true
 
 # Ends movement and resets variables
@@ -73,9 +74,9 @@ func _end_movement():
 # Processes movement, taking a step each time moveTimer*100 exceeds STEP_SPEED
 func _process_movement(delta):
 	moveTimer += delta
-	if (moveTimer*100) >= STEP_SPEED:
+	if (moveTimer*100) >= step_speed:
 		move(moveVector)
-		moveRemaining -= STEP_DISTANCE
+		moveRemaining -= step_distance
 		moveTimer = 0
 
 # Returns whether moving in direction dir would trigger a collision

@@ -49,6 +49,9 @@ tile_data = IntArray( -589824, 6, -589823, 6, -589822, 6, -589820, 6, -589819, 6
 [node name="Player" parent="ObjectLevel" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 288, 256 )
+tile_size = 32
+step_speed = 0.4
+step_distance = 4
 
 [node name="Stalagmite" type="StaticBody2D" parent="ObjectLevel"]
 
