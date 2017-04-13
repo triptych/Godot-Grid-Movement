@@ -29,28 +29,23 @@ var moveTimer = 0
 var direction_data = {
 	"up": {
 		"adjacent_tile": Vector2( 0 , -tile_size ),
-		"step_vector":   Vector2( 0 , -step_distance ),
-		"cursor_pos":    Vector2( 32 , -32 )
+		"step_vector":   Vector2( 0 , -step_distance )
 	},
 	"down": {
 		"adjacent_tile": Vector2( 0 , tile_size ),
-		"step_vector":   Vector2( 0 , step_distance ),
-		"cursor_pos":    Vector2( 32 , 96 )
+		"step_vector":   Vector2( 0 , step_distance )
 	},
 	"left": {
 		"adjacent_tile": Vector2( -tile_size , 0 ),
-		"step_vector":   Vector2( -step_distance , 0 ),
-		"cursor_pos":    Vector2( -32 , 32 )
+		"step_vector":   Vector2( -step_distance , 0 )
 	},
 	"right": {
 		"adjacent_tile": Vector2( tile_size , 0 ),
-		"step_vector":   Vector2( step_distance , 0 ),
-		"cursor_pos":    Vector2( 96 , 32 )
+		"step_vector":   Vector2( step_distance , 0 )
 	}
 }
 
 func _ready():
-	_recalibrate_tile_cursor(direction)
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -83,17 +78,19 @@ func _process_movement(delta):
 func _check_dir(dir):
 	return !test_move( direction_data[dir].adjacent_tile )
 
-func _recalibrate_tile_cursor(dir):
-	get_node("AdjacentTile").set_pos( direction_data[dir].cursor_pos )
-
 # Retrieves a move command that has been input
 # Begins movement if there are no collisions at the destination and player
 # is not already moving
 func take_move_command(dir):
 	if dir != direction:
 		direction = dir
-		_recalibrate_tile_cursor(dir)
 	if _check_dir(dir) and !moving:
 		_make_movement( direction_data[dir].step_vector )
+
+func get_direction():
+	return direction
+
+func get_tile_size():
+	return tile_size
 
 
