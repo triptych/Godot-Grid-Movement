@@ -1,8 +1,10 @@
-extends StaticBody2D
+extends Area2D
 
 var player
 var tile_size
 var cursor_pos
+
+var active = true
 
 func _ready():
 	player = get_parent()
@@ -20,3 +22,11 @@ func set_cursor_direction(dir):
 		set_pos( cursor_pos[dir] )
 	else:
 		print("ERROR: sent invalid direction to set_cursor_direction()")
+
+func interact():
+	if active == true:
+		active = false
+		var overlaps = get_overlapping_bodies()
+		for obj in overlaps:
+			if obj.is_in_group("Interactive"):
+				obj.on_interact()

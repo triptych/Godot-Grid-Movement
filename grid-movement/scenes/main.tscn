@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sprites/stalagmite.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Object/Door.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -29,7 +30,7 @@ sort/enabled = true
 
 [node name="PlayerLevel" type="TileMap" parent="ObjectLevel"]
 
-transform/pos = Vector2( -32, 0 )
+transform/pos = Vector2( -128, 0 )
 mode = 0
 tile_set = ExtResource( 2 )
 cell/size = Vector2( 32, 32 )
@@ -110,8 +111,14 @@ shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
+[node name="Door" parent="ObjectLevel" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 208, 176 )
+transform/scale = Vector2( 0.5, 0.5 )
+
 [node name="TopLevel" type="YSort" parent="."]
 
+transform/pos = Vector2( -32, 0 )
 sort/enabled = true
 
 

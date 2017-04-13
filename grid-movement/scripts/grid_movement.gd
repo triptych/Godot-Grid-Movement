@@ -87,10 +87,4 @@ func take_move_command(dir):
 	if _check_dir(dir) and !moving:
 		_make_movement( direction_data[dir].step_vector )
 
-func get_direction():
-	return direction
-
-func get_tile_size():
-	return tile_size
-
 
