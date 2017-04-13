@@ -10,6 +10,8 @@ Because of the relatively low number of files as it's a demonstration, all neces
 Simply import the project into the Godot Engine's project manager and you can edit it freely. Graphical assets are placeholder-quality
 but you are welcome to use them for your own purposes if you wish.
 
+Scripts/grid_movement.gd should be self-sufficient and can be copy pasted into your own project and attached to any KinematicBody2D object. Make sure this object is properly snapped into place.
+
 ## Completed Features
 
 * main scene built using tileset with tiles that have simple collisions.
