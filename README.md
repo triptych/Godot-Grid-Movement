@@ -27,10 +27,9 @@ by constants in Player.
 * If the number of moves remaining is at or below 0, movement will be ended, resetting variables and opening Player to new input commands.
 * Player has a child StaticBody2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction.
 Its position is recalibrated when the Player's direction changes from input.
+* Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
 
 ## To Do
 
-* Tie z-level/draw order to y position so that objects with a height greater than the tile size will appear above or below
-tiles/other objects properly.
 * Create objects that will "activate" when the AdjacentTile cursor is hovering over them and an "interact" input is pressed.
 * Compensate for the remainder when TILE_SIZE is not divisible by STEP_DISTANCE.
