@@ -32,5 +32,5 @@ Its position is recalibrated when the Player's direction changes from input.
 
 * Tie z-level/draw order to y position so that objects with a height greater than the tile size will appear above or below
 tiles/other objects properly.
-* Create objects that will "activate" when the AdjacentTile cursor is hovering over them
-* Compensate for the remainder when TILE_SIZE is not divisible by STEP_DISTANCE
+* Create objects that will "activate" when the AdjacentTile cursor is hovering over them and an "interact" input is pressed.
+* Compensate for the remainder when TILE_SIZE is not divisible by STEP_DISTANCE.
