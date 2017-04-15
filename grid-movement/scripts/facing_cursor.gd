@@ -1,19 +1,19 @@
 extends Area2D
 
 var player
-var tile_size
+var cell_size
 var cursor_pos
 
 var active = true
 
 func _ready():
 	player = get_parent()
-	tile_size = player.tile_size
+	cell_size = player.cell_size
 	cursor_pos = {
-		"up":    Vector2( tile_size , -tile_size ),
-		"down":  Vector2( tile_size , tile_size*3 ),
-		"left":  Vector2( -tile_size , tile_size ),
-		"right": Vector2( tile_size*3 , tile_size )
+		"up":    Vector2( cell_size , -cell_size ),
+		"down":  Vector2( cell_size , cell_size*3 ),
+		"left":  Vector2( -cell_size , cell_size ),
+		"right": Vector2( cell_size*3 , cell_size )
 	}
 	set_cursor_direction( player.direction )
 
