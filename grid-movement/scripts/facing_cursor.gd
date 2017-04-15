@@ -22,6 +22,7 @@ func _ready():
 func _fixed_process(delta):
 	_set_cursor_direction( player.direction )
 
+# Sets the cursor's direction to the passed argument if they do not match
 func _set_cursor_direction(dir):
 	if dir != direction:
 		direction = dir
@@ -30,6 +31,8 @@ func _set_cursor_direction(dir):
 		else:
 			print("ERROR: sent invalid direction to set_cursor_direction()")
 
+# Activates on_interact() function in Interactice objects 
+# overlapping the cursor
 func interact():
 	if active == true:
 		active = false

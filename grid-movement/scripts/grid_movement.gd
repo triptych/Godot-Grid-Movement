@@ -42,6 +42,7 @@ func _make_motion(dir=direction, speed=movespeed):
 		"vector": Vector2( vx , vy )
 	})
 
+# Determines if the current motion has arrived at its end point
 func _arrived(motion):
 	var pos = get_pos()
 	var p_x = pos.x
@@ -55,6 +56,8 @@ func _arrived(motion):
 	else:
 		return false
 
+# Projects the cycle's movement and returns true if it would 
+# overshoot the motion's end point
 func _will_overshoot(motion, delta):
 	var projection = get_pos() + (motion.vector * motion.speed * delta)
 	var pr_x = projection.x
