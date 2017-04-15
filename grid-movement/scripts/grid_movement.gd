@@ -10,6 +10,9 @@ export(float) var step_delay = 0.01
 export(int) var step_distance = 4
 # The current direction of the player
 export(String, "up", "down", "left", "right") var direction = "up"
+# Whether input is locked. Objects with this script need to be sent explicit
+# directions so this will not always be necessary to set.
+export(bool) var input_lock = false
 
 # Private instance variables
 # Whether the player is currently moving. Locks off command input if true
@@ -37,9 +40,9 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	if moving and remaining_steps <= 0 and step_remainder == 0:
+	if moving and remaining_steps == 0 and step_remainder == 0:
 		_end_movement()
-	elif moving and remaining_steps <= 0:
+	elif moving and remaining_steps == 0:
 		_process_overflow_movement(delta)
 	elif moving:
 		_process_movement(delta)
@@ -91,7 +94,7 @@ func _check_dir(dir):
 func take_move_command(dir):
 	if dir != direction:
 		direction = dir
-	if _check_dir(dir) and !moving:
+	if _check_dir(dir) and !moving and !input_lock:
 		_make_movement( _get_step_vector(dir) )
 
 
