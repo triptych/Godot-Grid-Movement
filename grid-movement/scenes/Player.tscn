@@ -26,10 +26,10 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-tile_size = 32
-step_speed = 0.4
-step_distance = 4
+cell_size = 32
+movespeed = 6
 direction = "up"
+input_lock = false
 
 [node name="FacingCursor" type="Area2D" parent="."]
 

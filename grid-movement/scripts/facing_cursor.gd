@@ -3,6 +3,7 @@ extends Area2D
 var player
 var cell_size
 var cursor_pos
+var direction
 
 var active = true
 
@@ -15,13 +16,19 @@ func _ready():
 		"left":  Vector2( -cell_size , cell_size ),
 		"right": Vector2( cell_size*3 , cell_size )
 	}
-	set_cursor_direction( player.direction )
+	_set_cursor_direction( player.direction )
+	set_fixed_process(true)
 
-func set_cursor_direction(dir):
-	if cursor_pos.has(dir):
-		set_pos( cursor_pos[dir] )
-	else:
-		print("ERROR: sent invalid direction to set_cursor_direction()")
+func _fixed_process(delta):
+	_set_cursor_direction( player.direction )
+
+func _set_cursor_direction(dir):
+	if dir != direction:
+		direction = dir
+		if cursor_pos.has(dir):
+			set_pos( cursor_pos[dir] )
+		else:
+			print("ERROR: sent invalid direction to set_cursor_direction()")
 
 func interact():
 	if active == true:
