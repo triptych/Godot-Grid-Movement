@@ -12,22 +12,27 @@ but you are welcome to use them for your own purposes if you wish.
 
 Scripts/grid_movement.gd should be self-sufficient and can be copy pasted into your own project and attached to any KinematicBody2D object. Make sure this object is properly snapped into place.
 
+## Default Controls
+
+Arrow Keys: Move
+Spacebar: Interact
+
 ## Completed Features
 
 * main scene built using tileset with tiles that have simple collisions.
 * main scene retrieves keyboard input and sends it to connected Player node via a function.
 * Player scene constructed seperately as a KinematicBody2D and instanced as a node of "main".
+* A grid_movement body has public(exported) variables representing the cell_size of the grid, the movespeed of the body, the direction of the body, and whether the body has an input_lock(can receive manual queue orders, but not input commands).
 * When Player receives a directional input command, it will match Player's direction variable to that input.
-* If Player receives a directional input command, the commanded movement would not collide, and the Player is not already moving, the Player initiates movement, setting remaining_steps to the cell size in pixels divided by the step distance. If there is a remainder in this division, it is stored in step_remainder and used to determine how far the Player should continue moving to "snap" to the grid.
-* Each fixed_process cycle the Player is moving, the delta time is added to the move_timer variable. If this variable equals or exceeds step_delay, a "step" is made, moving the Player by its current move_vector and decrementing remaining_steps
-* move_vector stores a Vector2 that determines which direction and to what extent the Player moves for each "step" while movement is active. The amount of time between each "step" and the number of coordinates jumped each "step" of the movement is determined by instance variables of Player.
-* If the number of steps remaining is at or below 0, and step_remainder is 0 indicating that there is no remainder to handle, movement will be ended, resetting variables and opening Player to new input commands.
-* If there is a step_remainder and the number of steps remaining is <= 0, the script attempts an overflow vector movement to compensate.
-* Player has a child StaticBody2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction. Its position is recalibrated when the Player's direction changes from input.
+* If Player receives a directional input command, the commanded movement would not collide, the input lock is disabled, and the Player is not already moving, the Player initiates movement by adding a motion object to the motion_queue.
+* Motion objects hold the direction that was passed(defaulting to the Player's direction at the time), the starting position of the motion, the end position of the motion, the speed it was passed(defaulting to the Player's movespeed at the time), and a vector that is run in a move() function each cycle to move Player towards the end point.
+* Each fixed_process cycle, the motion_queue is checked for motion objects, and if at least one exists the top motion object is passed to be processed.
+* During processing, the motion is checked to discover whether it has reached the end point or whether this cycle's movement will overshoot the end point. If not, the motion's vector will be run through move().
+* If so, however, Player is snapped to the end point if they will overshoot, and then the front of the motion_queue is popped, moving on to the next motion in the queue(or emptying it).
+* Player has a child StaticBody2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction. Its position will always match the adjacent tile to the Player's current direction.
 * Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
 * The facing cursor will search for any overlapping physics bodies, and if found, then checks if they are in the "Interactable" group. If so, that object's on_interact() function will be run.
 
 ## To Do
 
-* Make compensation more reliable. While the Player doesn't ever move into a cell with a collision, they can appear askew of the grid if cell_size is not divisible by step_distance.
-* Rework into a queue system to allow the user to send an array of movement commands to be run one at a time. May make above issue easier to fix.
+* Enable queueing of motions by passing an array of directions
