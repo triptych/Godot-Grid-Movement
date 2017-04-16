@@ -17,6 +17,8 @@ Scripts/grid_movement.gd should be self-sufficient and can be copy pasted into y
 Arrow Keys: Move
 Spacebar: Interact
 Tab: Toggle noclip
+Q: Queue one "up" motion command
+A: Queue a series of motion commands representing the directional input of the Konami Code
 
 ## Completed Features
 
@@ -34,7 +36,5 @@ Tab: Toggle noclip
 * Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
 * The facing cursor will search for any overlapping physics bodies, and if found, then checks if they are in the "Interactable" group. If so, that object's on_interact() function will be run.
 * The Player can be set to ignore collisions by activating the function noclip_on(), and collisions can be restored by activating noclip_off(). You can also activate toggle_noclip() to toggle between these states, which is demonstrated here with the Tab key.
-
-## To Do
-
-* Enable queueing of motions by passing an array of directions
+* You can queue up a motion to be run when it reaches the top of the motion_queue by passing the queue_move_command() function a string representing a direction("up"/"down"/"left"/"right"). It will automatically project itself based on the endpoint of the last motion currently in the queue, or the last motion that was run if it is empty. The motion will be skipped if the script detects it will cause a collision.
+* You can also iterate through an array of directional strings by passing that array to the queue_move_commands() function. This will simply perform queue_move_command() for each element in the array.
