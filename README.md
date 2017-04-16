@@ -38,3 +38,7 @@ A: Queue a series of motion commands representing the directional input of the K
 * The Player can be set to ignore collisions by activating the function noclip_on(), and collisions can be restored by activating noclip_off(). You can also activate toggle_noclip() to toggle between these states, which is demonstrated here with the Tab key.
 * You can queue up a motion to be run when it reaches the top of the motion_queue by passing the queue_move_command() function a string representing a direction("up"/"down"/"left"/"right"). It will automatically project itself based on the endpoint of the last motion currently in the queue, or the last motion that was run if it is empty. The motion will be skipped if the script detects it will cause a collision.
 * You can also iterate through an array of directional strings by passing that array to the queue_move_commands() function. This will simply perform queue_move_command() for each element in the array.
+
+## To Do
+
+* Implement A* Pathfinding to allow the Player to move to a given position based on a point or another 2D Body object.
