@@ -1,11 +1,15 @@
 extends Node2D
 
+var player
+var cursor
+
 func _ready():
+	player = get_node("ObjectLevel/Player")
+	cursor = player.get_node("FacingCursor")
 	set_fixed_process(true)
+	set_process_input(true)
 
 func _fixed_process(delta):
-	var player = get_node("ObjectLevel/Player")
-	var cursor = player.get_node("FacingCursor")
 	if Input.is_action_pressed("ui_up"):
 		player.take_move_command("up")
 	elif Input.is_action_pressed("ui_down"):
@@ -14,5 +18,9 @@ func _fixed_process(delta):
 		player.take_move_command("left")
 	elif Input.is_action_pressed("ui_right"):
 		player.take_move_command("right")
-	if Input.is_action_pressed("ui_select"):
+
+func _input(event):
+	if event.is_action_released("ui_select"):
 		cursor.interact()
+	elif event.is_action_released("ui_focus_next"):
+		player.toggle_noclip()

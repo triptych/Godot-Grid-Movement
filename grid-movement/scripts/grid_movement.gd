@@ -23,6 +23,9 @@ var dir_vector = {
 	"right": { "x": 1  , "y": 0  }
 }
 
+# Whether noclip is on
+var noclip = false
+
 func _ready():
 	set_fixed_process(true)
 
@@ -92,6 +95,25 @@ func _check_dir(dir):
 # Returns whether or not the motion queue is stacked
 func is_moving():
 	return !motion_queue.empty()
+
+# Activates "noclip" by removing the collision and layer masks
+func noclip_on():
+	set_collision_mask(0)
+	set_layer_mask(0)
+	noclip = true
+
+# Restores collision to default masks
+func noclip_off():
+	set_collision_mask(1)
+	set_layer_mask(1)
+	noclip = false
+	
+# Toggles noclip based on current state
+func toggle_noclip():
+	if noclip:
+		noclip_off()
+	else:
+		noclip_on()
 
 # Begins movement if there are no collisions at the destination and player
 # is not already moving
