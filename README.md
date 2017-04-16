@@ -30,7 +30,7 @@ Tab: Toggle noclip
 * Each fixed_process cycle, the motion_queue is checked for motion objects, and if at least one exists the top motion object is passed to be processed.
 * During processing, the motion is checked to discover whether it has reached the end point or whether this cycle's movement will overshoot the end point. If not, the motion's vector will be run through move().
 * If so, however, Player is snapped to the end point if they will overshoot, and then the front of the motion_queue is popped, moving on to the next motion in the queue(or emptying it).
-* Player has a child StaticBody2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction. Its position will always match the adjacent tile to the Player's current direction.
+* Player has a child Area2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction. Its position will always match the adjacent tile to the Player's current direction.
 * Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
 * The facing cursor will search for any overlapping physics bodies, and if found, then checks if they are in the "Interactable" group. If so, that object's on_interact() function will be run.
 * The Player can be set to ignore collisions by activating the function noclip_on(), and collisions can be restored by activating noclip_off(). You can also activate toggle_noclip() to toggle between these states, which is demonstrated here with the Tab key.
