@@ -26,7 +26,12 @@ var dir_vector = {
 # Whether noclip is on
 var noclip = false
 
+# Vector representing the position of the last motion's endpoint 
+# on the queue
+var final_position
+
 func _ready():
+	final_position = get_pos()
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -37,13 +42,15 @@ func _fixed_process(delta):
 func _make_motion(dir=direction, speed=movespeed):
 	var vx = dir_vector[dir].x * cell_size
 	var vy = dir_vector[dir].y * cell_size
-	motion_queue.append({
+	var motion = {
 		"direction": dir,
-		"start_point": get_pos(),
-		"end_point": get_pos() + _get_adjacent_tile_vector(dir),
+		"start_point": final_position,
+		"end_point": final_position + _get_adjacent_tile_vector(dir),
 		"speed": speed,
 		"vector": Vector2( vx , vy )
-	})
+	}
+	final_position = motion.end_point
+	motion_queue.append(motion)
 
 # Determines if the current motion has arrived at its end point
 func _arrived(motion):
@@ -76,6 +83,7 @@ func _will_overshoot(motion, delta):
 
 # Processes a motion
 func _process_movement(motion, delta):
+	direction = motion.direction
 	if _arrived(motion):
 		motion_queue.pop_front()
 	elif _will_overshoot(motion, delta):
@@ -91,6 +99,13 @@ func _get_adjacent_tile_vector(dir):
 # Returns whether moving in direction dir would trigger a collision
 func _check_dir(dir):
 	return !test_move( _get_adjacent_tile_vector(dir) )
+
+# Returns whether a move to be queued will be valid given the projected
+# final position up to then
+func _valid_move(dir):
+	var distance_to_final = final_position - get_pos()
+	var new_move = Vector2( cell_size*dir_vector[dir].x, cell_size*dir_vector[dir].y)
+	return !test_move( distance_to_final + new_move )
 
 # Returns whether or not the motion queue is stacked
 func is_moving():
@@ -122,5 +137,15 @@ func take_move_command(dir):
 		direction = dir
 	if _check_dir(dir) and !is_moving() and !input_lock:
 		_make_motion(dir)
+
+# Queues up a single move command to be run
+func queue_move_command(dir, speed=movespeed):
+	if _valid_move(dir):
+		_make_motion(dir, speed)
+
+# Queues up a series of move commands to be run
+func queue_move_commands(dirs, speed=movespeed):
+	for dir in dirs:
+		queue_move_command(dir, speed)
 
 

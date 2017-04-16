@@ -24,3 +24,7 @@ func _input(event):
 		cursor.interact()
 	elif event.is_action_released("ui_focus_next"):
 		player.toggle_noclip()
+	elif event.is_action_released("queue_one_motion"):
+		player.queue_move_command("up")
+	elif event.is_action_released("queue_several_motions"):
+		player.queue_move_commands(["up", "up", "down", "down", "left", "right", "left", "right"])
