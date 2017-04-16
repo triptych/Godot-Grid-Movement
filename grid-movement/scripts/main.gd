@@ -28,3 +28,11 @@ func _input(event):
 		player.queue_move_command("up")
 	elif event.is_action_released("queue_several_motions"):
 		player.queue_move_commands(["up", "up", "down", "down", "left", "right", "left", "right"])
+	elif event.is_action_released("queue_motions_with_objects"):
+		player.queue_move_commands([
+			{ "direction": "left",  "speed": 2  },
+			{ "direction": "right", "speed": 12 },
+			{ "direction": "right", "speed": 12 },
+			{ "direction": "right", "speed": 14 }
+		])
+		

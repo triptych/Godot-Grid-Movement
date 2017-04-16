@@ -146,6 +146,9 @@ func queue_move_command(dir, speed=movespeed):
 # Queues up a series of move commands to be run
 func queue_move_commands(dirs, speed=movespeed):
 	for dir in dirs:
-		queue_move_command(dir, speed)
+		if typeof(dir) == 4: # if string
+			queue_move_command(dir, speed)
+		elif typeof(dir) == 20: # if dictionary. Used to provide motions of varying speed
+			queue_move_command(dir.direction, dir.speed)
 
 
