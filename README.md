@@ -15,11 +15,18 @@ Scripts/grid_movement.gd should be self-sufficient and can be copy pasted into y
 ## Default Controls
 
 Arrow Keys: Move
+
 Spacebar: Interact
+
 Tab: Toggle noclip
+
 Q: Queue one "up" motion command
+
 A: Queue a series of motion commands representing the directional input of the Konami Code
+
 Z: Queue a series of motion commands as dictionaries, moving slowly to the left one tile then rapidly to the right the next
+
+X: Toggle facing towards current direction, leaving facing at current value or having it match direction
 
 ## Completed Features
 
@@ -33,13 +40,14 @@ Z: Queue a series of motion commands as dictionaries, moving slowly to the left 
 * Each fixed_process cycle, the motion_queue is checked for motion objects, and if at least one exists the top motion object is passed to be processed.
 * During processing, the motion is checked to discover whether it has reached the end point or whether this cycle's movement will overshoot the end point. If not, the motion's vector will be run through move().
 * If so, however, Player is snapped to the end point if they will overshoot, and then the front of the motion_queue is popped, moving on to the next motion in the queue(or emptying it).
-* Player has a child Area2D node that acts as a cursor pointing out the adjacent tile for the Player's current direction. Its position will always match the adjacent tile to the Player's current direction.
+* Player has a child Area2D node that acts as a cursor pointing out the adjacent tile for the Player's current facing. Its position will always match the adjacent tile to the Player's current facing.
 * Objects are children of different YSort nodes which act as layers, which means that within those layers they will draw in front of or behind other objects based on their y position.
 * The facing cursor will search for any overlapping physics bodies, and if found, then checks if they are in the "Interactable" group. If so, that object's on_interact() function will be run.
 * The Player can be set to ignore collisions by activating the function noclip_on(), and collisions can be restored by activating noclip_off(). You can also activate toggle_noclip() to toggle between these states, which is demonstrated here with the Tab key.
 * You can queue up a motion to be run when it reaches the top of the motion_queue by passing the queue_move_command() function a string representing a direction("up"/"down"/"left"/"right"). It will automatically project itself based on the endpoint of the last motion currently in the queue, or the last motion that was run if it is empty. The motion will be skipped if the script detects it will cause a collision.
 * You can also iterate through an array of directional strings by passing that array to the queue_move_commands() function. This will simply perform queue_move_command() for each element in the array.
 * queue_move_commands() can also be sent an array of dictionaries which have a "direction" key, but also a "speed" key that allows you to specify a particular speed for a motion command.
+* The Player's facing is seperate from their direction, but by default will match it. However, this behavior can be disabled and the facing can be modified separately from the direction. The facing is not used internally to the grid_movement script but could be very useful when referenced outside of it, such as for sprite manipulations.
 
 ## To Do
 
