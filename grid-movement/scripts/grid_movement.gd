@@ -10,6 +10,10 @@ export(String, "up", "down", "left", "right") var direction = "up"
 # Whether input is locked. Objects with this script need to be sent explicit
 # directions so this will not always be necessary to set.
 export(bool) var input_lock = false
+# The facing of the object, mostly for external use.
+export(String, "up", "down", "left", "right") var facing = "up"
+# Whether to lock facing to the object's direction
+export(bool) var faces_direction = true
 
 # Private instance variables
 # An array representing a queue of stored movements
@@ -35,6 +39,8 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
+	if faces_direction and facing != direction:
+		facing = direction
 	if is_moving():
 		_process_movement(motion_queue[0], delta)
 
@@ -150,5 +156,18 @@ func queue_move_commands(dirs, speed=movespeed):
 			queue_move_command(dir, speed)
 		elif typeof(dir) == 20: # if dictionary. Used to provide motions of varying speed
 			queue_move_command(dir.direction, dir.speed)
+			
+# Unlocks facing towards direction. Optionally pass a direction to face.
+func set_static_facing(dir=direction):
+	faces_direction = false
+	facing = dir
+
+# Toggles static facing. Optionally pass a direction to face when 
+# faces_direction is made false.
+func toggle_static_facing(dir=direction):
+	if faces_direction:
+		set_static_facing(dir)
+	else:
+		faces_direction = true
 
 

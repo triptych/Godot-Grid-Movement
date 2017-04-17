@@ -16,14 +16,14 @@ func _ready():
 		"left":  Vector2( -cell_size , cell_size ),
 		"right": Vector2( cell_size*3 , cell_size )
 	}
-	_set_cursor_direction( player.direction )
+	_set_cursor_facing( player.facing )
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	_set_cursor_direction( player.direction )
+	_set_cursor_facing( player.facing )
 
 # Sets the cursor's direction to the passed argument if they do not match
-func _set_cursor_direction(dir):
+func _set_cursor_facing(dir):
 	if dir != direction:
 		direction = dir
 		if cursor_pos.has(dir):

@@ -50,6 +50,8 @@ tile_data = IntArray( -589824, 6, -589823, 6, -589822, 6, -589820, 6, -589819, 6
 [node name="Player" parent="ObjectLevel" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 288, 256 )
+facing = "up"
+faces_direction = true
 
 [node name="Stalagmite" type="StaticBody2D" parent="ObjectLevel"]
 

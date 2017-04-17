@@ -35,4 +35,6 @@ func _input(event):
 			{ "direction": "right", "speed": 12 },
 			{ "direction": "right", "speed": 14 }
 		])
+	elif event.is_action_released("toggle_static_facing"):
+		player.toggle_static_facing()
 		
