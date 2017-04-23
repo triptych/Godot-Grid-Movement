@@ -30,10 +30,10 @@ func _input(event):
 		player.queue_move_commands(["up", "up", "down", "down", "left", "right", "left", "right"])
 	elif event.is_action_released("queue_motions_with_objects"):
 		player.queue_move_commands([
-			{ "direction": "left",  "speed": 2  },
+			{ "direction": "left",  "speed": 2, "lock_input": true, "set_facing": "right"  },
 			{ "direction": "right", "speed": 12 },
 			{ "direction": "right", "speed": 12 },
-			{ "direction": "right", "speed": 14 }
+			{ "direction": "right", "speed": 14, "lock_input": false, "unset_facing": true }
 		])
 	elif event.is_action_released("toggle_static_facing"):
 		player.toggle_static_facing()

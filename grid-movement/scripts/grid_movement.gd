@@ -45,7 +45,7 @@ func _fixed_process(delta):
 		_process_movement(motion_queue[0], delta)
 
 # Begins moving based on the provided vector
-func _make_motion(dir=direction, speed=movespeed):
+func _make_motion(dir=direction, speed=movespeed, opts={}):
 	var vx = dir_vector[dir].x * cell_size
 	var vy = dir_vector[dir].y * cell_size
 	var motion = {
@@ -53,8 +53,14 @@ func _make_motion(dir=direction, speed=movespeed):
 		"start_point": final_position,
 		"end_point": final_position + _get_adjacent_tile_vector(dir),
 		"speed": speed,
-		"vector": Vector2( vx , vy )
+		"vector": Vector2( vx , vy ),
 	}
+	if opts.has("lock_input"):
+		motion.lock_input = opts.lock_input
+	if opts.has("set_facing"):
+		motion.set_facing = opts.set_facing
+	if opts.has("unset_facing"):
+		motion.unset_facing = opts.unset_facing
 	final_position = motion.end_point
 	motion_queue.append(motion)
 
@@ -89,6 +95,22 @@ func _will_overshoot(motion, delta):
 
 # Processes a motion
 func _process_movement(motion, delta):
+	if motion.has("lock_input"):
+		if motion.lock_input and !input_lock:
+			input_lock = true
+		elif !motion.lock_input and input_lock:
+			input_lock = false
+			
+	if motion.has("set_facing"):
+		if faces_direction:
+			set_static_facing(motion.set_facing)
+		else:
+			facing = motion.set_facing
+			
+	if motion.has("unset_facing"):
+		if !faces_direction:
+			faces_direction = true
+	
 	direction = motion.direction
 	if _arrived(motion):
 		motion_queue.pop_front()
@@ -145,9 +167,9 @@ func take_move_command(dir):
 		_make_motion(dir)
 
 # Queues up a single move command to be run
-func queue_move_command(dir, speed=movespeed):
+func queue_move_command(dir, speed=movespeed, opts={}):
 	if _valid_move(dir):
-		_make_motion(dir, speed)
+		_make_motion(dir, speed, opts)
 
 # Queues up a series of move commands to be run
 func queue_move_commands(dirs, speed=movespeed):
@@ -155,7 +177,14 @@ func queue_move_commands(dirs, speed=movespeed):
 		if typeof(dir) == 4: # if string
 			queue_move_command(dir, speed)
 		elif typeof(dir) == 20: # if dictionary. Used to provide motions of varying speed
-			queue_move_command(dir.direction, dir.speed)
+			var opts = {}
+			if dir.has("lock_input"):
+				opts["lock_input"] = dir.lock_input
+			if dir.has("set_facing"):
+				opts["set_facing"] = dir.set_facing
+			if dir.has("unset_facing"):
+				opts["unset_facing"] = dir.unset_facing
+			queue_move_command(dir.direction, dir.speed, opts)
 			
 # Unlocks facing towards direction. Optionally pass a direction to face.
 func set_static_facing(dir=direction):
