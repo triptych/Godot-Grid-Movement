@@ -178,10 +178,15 @@ func queue_move_commands(dirs, speed=movespeed):
 			queue_move_command(dir, speed)
 		elif typeof(dir) == 20: # if dictionary. Used to provide motions of varying speed
 			var opts = {}
+			# If lock_input is true, this motion locks user input.
+			# If it's false, this motion unlocks user input
 			if dir.has("lock_input"):
 				opts["lock_input"] = dir.lock_input
+			# If a direction is provided, set_facing will lock facing
+			# to that direction.
 			if dir.has("set_facing"):
 				opts["set_facing"] = dir.set_facing
+			# If unset_facing has any value, facing will conform to direction again
 			if dir.has("unset_facing"):
 				opts["unset_facing"] = dir.unset_facing
 			queue_move_command(dir.direction, dir.speed, opts)
